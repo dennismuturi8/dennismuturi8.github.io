@@ -1,6 +1,6 @@
 ---
 title: "Lab Challenges"
-layout: categories
+layout: single
 permalink: /lab challenges/
 author_profile: true
 ---
