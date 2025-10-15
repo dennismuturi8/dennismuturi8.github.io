@@ -1,0 +1,31 @@
+/* /_sass/custom.scss */
+
+/* Import a techy font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* Apply the font to your whole site */
+body {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #ffffff;
+  color: #222;
+}
+
+/* Headings - make them bold and clean */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Optional - tweak link colors for a modern look */
+a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
