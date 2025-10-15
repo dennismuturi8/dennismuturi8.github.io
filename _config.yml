@@ -13,12 +13,12 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: DENNIS MUTURI
-email: 
+title: 
+email: dennismuturi8@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
 
-twitter_username: 
-github_username: 
+twitter_username: kbucci_dennis
+github_username: dennismuturi8
 minimal_mistakes_skin: neon
 search: true
 
@@ -60,30 +60,30 @@ author:
   avatar : "/assets/images/kbucci.jpg"
   bio    : "Proactive technologist, researcher and consultant."
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
+    #- label: "Website"
+     # icon: "fas fa-fw fa-link"
+      #url: "https://"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
+      url: "https://twitter.com/kbucci_dennis"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/in/dennismuturi8"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+    - label: "Linkedin"
+      icon: "fab fa-linkedin"
+      url: "https://linkedin.com/in/dennismuturi8"
 
 footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
+      url: "https://twitter.com/kbucci_dennis"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://github.com/dennismuturi8"
+    - label: "Linkedin"
+      icon: "fab fa-linkedin"
+      url: "https://instagram.com/dennismuturi8"
 
 defaults:
   # _posts
