@@ -60,9 +60,9 @@ author:
   avatar : "/assets/images/kbucci.jpg"
   bio    : "Proactive technologist, researcher and consultant."
   links:
-    #- label: "Website"
-     # icon: "fas fa-fw fa-link"
-      #url: "https://"
+    - label: "Email"
+      icon: "fas fa-envelope"
+      url: "mailto:dennismuturi8@gmail.com"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/kbucci_dennis"
@@ -84,6 +84,10 @@ footer:
     - label: "Linkedin"
       icon: "fab fa-linkedin"
       url: "https://instagram.com/dennismuturi8"
+    - label: "Email"
+      icon: "fas fa-envelope"
+      url: "mailto:dennismuturi8@gmail.com"
+
 
 defaults:
   # _posts
