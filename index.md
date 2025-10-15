@@ -13,14 +13,7 @@ author_profile: true
 
 **IT Department Attaché**  
 *Kenya Medical Training College Nyeri, Kenya*  
-**Jan 2022 – Apr 2022**
-
-- Assisted the IT department in liaising with other departments within the office.  
-- Demonstrated the ability to work in a team with other staff to ensure smooth coordination.  
-- Provided administrative and support services within the department.  
-- Helped in day-to-day activities ensuring coordination with respective staff.  
-- Offered user support in ERP systems.  
-- Proficient in managing IT operations and implementing strategic initiatives to enhance productivity.  
+**Jan 2022 – Apr 2022** 
 
 ---
 
@@ -28,23 +21,21 @@ author_profile: true
 *Independent Electoral and Boundaries Commission Nyeri, Kenya*  
 **Aug 2022 – Aug 2022**
 
-- Proficient in using electronic polling equipment and software to facilitate voting processes.  
-- Exceptional customer service skills, providing assistance and guidance to voters.  
-- Experience in conducting surveys and polls, ensuring accuracy and confidentiality of data.  
-
 ---
 
 **IT Support**  
 *Eddy’s Homecare Company Ltd*  
-**Jul 2024 – Feb 2025**
-
-- Assisted in installation and configuration of operating systems and applications on desktops and laptops.  
-- Trained staff on software applications and best practices for troubleshooting common technical problems.  
-- Assisted in setting up and maintaining the network and office server for file collaboration and sharing.  
+**Jul 2024 – Feb 2025** 
 
 ---
 
 ## 🎓 EDUCATION
+
+**Cloud and Network Security** 
+*Cyber Shujaa, Nairobi, Kenya*
+**Sep 2025 - Nov 2025**
+
+---
 
 **Bachelor of Technology in Computer and Electronics Systems**  
 *Mount Kenya University, Thika, Kenya*  
