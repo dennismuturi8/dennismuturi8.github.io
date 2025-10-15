@@ -31,9 +31,9 @@ author_profile: true
 
 ## 🎓 EDUCATION
 
-**Cloud and Network Security** 
-*Cyber Shujaa, Nairobi, Kenya*
-**Sep 2025 - Nov 2025**
+**Cloud and Network Security**                                                                                                
+*Cyber Shujaa, Nairobi, Kenya*                                                                                                
+**Sep 2025 - Nov 2025** 
 
 ---
 
