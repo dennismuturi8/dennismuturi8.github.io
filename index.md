@@ -2,7 +2,7 @@
 # You don't need to edit this file, it's empty on purpose.
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-layout: single
+layout: splash
 author_profile: true
 ---
 # **DENNIS MUTURI**
@@ -58,13 +58,12 @@ author_profile: true
 ## ⚙️ SKILLS
 
 - Hardware programming  
-- Circuit design, simulation and implementation  
-- Hardware fabrication  
-- PCB design  
-- Hardware troubleshooting  
-- Server setup and maintenance  
-- Python  
-- TrueNAS  
+- PCB design, Circuit design, simulation and implementation      
+- Hardware troubleshooting & fabrication 
+- Server setup and maintenance, TrueNAS & Proxmox  
+- Python, C & C++  
+- Linux, Windows and MacOS
+- Wireshark, TCPDump & TShark
 
 ---
 
