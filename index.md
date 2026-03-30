@@ -61,7 +61,7 @@ author_profile: true
 - PCB design, Circuit design, simulation and implementation      
 - Hardware troubleshooting & fabrication 
 - Server setup and maintenance, TrueNAS & Proxmox  
-- Python, C & C++  
+- Python, Terraform, AWS, Kubernetes 
 - Linux, Windows and MacOS
 - Wireshark, TCPDump & TShark
 
