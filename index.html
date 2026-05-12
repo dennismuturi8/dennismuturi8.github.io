@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dennis Muturi | IT Support · DevOps · Cloud Security</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0a0f0a;
+      --bg2:       #0d150d;
+      --bg3:       #111a11;
+      --green:     #00ff41;
+      --green-dim: #00c832;
+      --green-muted: #1a4d1a;
+      --teal:      #00e5ff;
+      --amber:     #ffb300;
+      --red:       #ff3131;
+      --text:      #c8f0c8;
+      --text-dim:  #6b9e6b;
+      --border:    #1e3a1e;
+      --card-bg:   #0d180d;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      cursor: default;
+      overflow-x: hidden;
+    }
+
+    /* Scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,255,65,0.015) 2px,
+        rgba(0,255,65,0.015) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── TOP NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,15,10,0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 48px;
+    }
+
+    .nav-brand {
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 0 14px;
+      height: 48px;
+      line-height: 48px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+      transition: color 0.2s, background 0.2s;
+      border-left: 1px solid var(--border);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--green);
+      background: rgba(0,255,65,0.05);
+    }
+
+    .nav-links a::before { content: '/'; color: var(--green-dim); }
+
+    /* ── STATUS BAR ── */
+    #statusbar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--green);
+      color: #0a0f0a;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      padding: 2px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #statusbar .left { display: flex; gap: 24px; }
+    #statusbar .right { display: flex; gap: 24px; }
+    #sb-time { font-weight: bold; }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 0 60px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Section header */
+    .sec-header {
+      margin-bottom: 40px;
+    }
+
+    .sec-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--green-dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sec-label::before { content: '## '; color: var(--text-dim); }
+
+    .sec-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(20px, 3vw, 28px);
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .sec-divider {
+      height: 1px;
+      background: linear-gradient(to right, var(--green-dim), transparent);
+      margin-top: 16px;
+    }
+
+    /* ── HERO ── */
+    #home {
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::after {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,65,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-pre {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--green-dim);
+      margin-bottom: 16px;
+    }
+
+    .hero-pre::before { content: '> '; }
+
+    .hero-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 900;
+      color: var(--green);
+      letter-spacing: 4px;
+      line-height: 1.1;
+      text-shadow: 0 0 40px rgba(0,255,65,0.3);
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--teal);
+      margin-bottom: 24px;
+      min-height: 28px;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 10px;
+      height: 1.1em;
+      background: var(--teal);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-desc {
+      color: var(--text-dim);
+      max-width: 520px;
+      margin-bottom: 36px;
+      font-size: 13px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .badge {
+      background: var(--green-muted);
+      border: 1px solid var(--green-dim);
+      color: var(--green);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      padding: 4px 12px;
+      letter-spacing: 1px;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 10px 24px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #0a0f0a;
+      border: 1px solid var(--green);
+    }
+
+    .btn-primary:hover { background: transparent; color: var(--green); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--green-dim); color: var(--green); }
+
+    /* ── HERO PHOTO ── */
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .hero-text { flex: 1; min-width: 280px; }
+
+    .hero-photo-wrap {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border: 1px solid var(--green-dim);
+      clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+      animation: pulse-border 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-border {
+      0%, 100% { opacity: 0.5; }
+      50%       { opacity: 1; }
+    }
+
+    .hero-photo-wrap::after {
+      content: 'VERIFIED';
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--green);
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+      clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+    }
+
+    @media (max-width: 700px) {
+      .hero-inner { flex-direction: column-reverse; align-items: flex-start; gap: 32px; }
+      .hero-photo { width: 140px; height: 140px; }
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .terminal-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .terminal-bar {
+      background: var(--border);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .terminal-bar .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot-red   { background: #ff5f57; }
+    .dot-amber { background: #febc2e; }
+    .dot-green { background: #28c840; }
+
+    .terminal-body { padding: 16px; }
+
+    .terminal-line {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .terminal-line .prompt { color: var(--green); }
+    .terminal-line .cmd    { color: var(--text); }
+    .terminal-line .out    { color: var(--text-dim); }
+    .terminal-line .val    { color: var(--teal); }
+    .terminal-line .comment{ color: var(--text-dim); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--green-dim);
+      transform: translateY(-2px);
+    }
+
+    .skill-cat {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .skill-name { font-size: 12px; color: var(--text); }
+
+    .skill-bar-wrap {
+      flex: 0 0 120px;
+      height: 4px;
+      background: var(--border);
+    }
+
+    .skill-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--green-dim), var(--green));
+      transition: width 1s ease;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--bg2); }
+
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green-dim), transparent);
+    }
+
+    .timeline-item {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 6px;
+      width: 9px; height: 9px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    .tl-date {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .tl-role {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    .tl-org {
+      font-size: 12px;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    .tl-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--bg); }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .edu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green-dim);
+      padding: 20px;
+      transition: border-left-color 0.2s;
+    }
+
+    .edu-card:hover { border-left-color: var(--green); }
+
+    .edu-degree {
+      font-family: 'Orbitron', monospace;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .edu-inst { font-size: 12px; color: var(--teal); margin-bottom: 4px; }
+    .edu-date { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text-dim); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg2); }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover { border-color: var(--green-dim); }
+
+    .project-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .project-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border: 1px solid var(--green-muted);
+      color: var(--green-dim);
+    }
+
+    .project-body { padding: 20px 24px; }
+    .project-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+
+    .project-embed {
+      width: 100%;
+      height: 400px;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+
+    /* ── LAB CHALLENGES ── */
+    #labs { background: var(--bg); }
+
+    .lab-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .lab-card:hover { border-color: var(--teal); }
+
+    .lab-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .lab-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--border);
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .lab-meta {}
+
+    .lab-platform {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--teal);
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+
+    .lab-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .lab-body { padding: 20px 24px; }
+    .lab-desc { font-size: 12px; color: var(--text-dim); margin-bottom: 16px; }
+
+    .lab-skills-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--green-dim);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .lab-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .skill-pill {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 3px 10px;
+      background: rgba(0,255,65,0.06);
+      border: 1px solid var(--green-muted);
+      color: var(--text-dim);
+    }
+
+    .lab-tools {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .lab-tools span { color: var(--amber); }
+
+    .lab-embed {
+      width: 100%;
+      height: 400px;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); min-height: auto; padding: 80px 0 100px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      text-decoration: none;
+      color: var(--text-dim);
+      font-size: 12px;
+      margin-bottom: 12px;
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--green-dim);
+      color: var(--green);
+      background: rgba(0,255,65,0.04);
+    }
+
+    .contact-link .link-icon {
+      font-size: 16px;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .contact-link .link-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--green-dim);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .contact-cta {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--green);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .contact-sub { font-size: 12px; color: var(--text-dim); margin-bottom: 24px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 20px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      padding-bottom: 32px;
+    }
+
+    footer span { color: var(--green-dim); }
+
+    /* ── RESPONSIVE NAV ── */
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      nav { justify-content: center; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-brand">DMUTURI</a>
+    <ul class="nav-links">
+      <li><a href="#home">home</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#labs">labs</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- STATUS BAR -->
+  <div id="statusbar">
+    <div class="left">
+      <span>[STATUS: <strong>ONLINE</strong>]</span>
+      <span>[LOCATION: NAIROBI, KE]</span>
+      <span>[ROLE: IT SUPPORT · DEVOPS · CLOUD/NETWORK SECURITY]</span>
+    </div>
+    <div class="right">
+      <span id="sb-time">[TIME: --:--:--]</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-pre">whoami</div>
+          <div class="hero-name">DENNIS<br>MUTURI</div>
+          <div class="hero-title" id="typing-target"><span class="cursor-blink"></span></div>
+          <p class="hero-desc">
+            IT Support, DevOps & Cloud/Network Security professional based in Nairobi, Kenya.
+            Building resilient infrastructure, securing networks, and solving real-world tech challenges.
+          </p>
+          <div class="hero-badges">
+            <span class="badge">AWS</span>
+            <span class="badge">Terraform</span>
+            <span class="badge">Docker</span>
+            <span class="badge">Kubernetes</span>
+            <span class="badge">Linux</span>
+            <span class="badge">Wireshark</span>
+            <span class="badge">Proxmox</span>
+            <span class="badge">TrueNAS</span>
+          </div>
+          <div class="hero-links">
+            <a href="#projects" class="btn btn-primary">view_projects</a>
+            <a href="mailto:dennismuturi8@gmail.com" class="btn btn-outline">contact_me</a>
+            <a href="https://github.com/dennismuturi8" target="_blank" class="btn btn-outline">github</a>
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <img
+            src="https://dennismuturi8.github.io/assets/images/kbucci.jpg"
+            alt="Dennis Muturi"
+            class="hero-photo"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">about</div>
+        <div class="sec-title">SYS_INFO</div>
+        <div class="sec-divider"></div>
+      </div>
+      <div class="about-grid fade-in">
+        <div class="terminal-box">
+          <div class="terminal-bar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-amber"></span>
+            <span class="dot dot-green"></span>
+            <span style="margin-left:8px;">~ profile.json</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="prompt">$</span> <span class="cmd">cat profile.json</span></div>
+            <div class="terminal-line" style="margin-top:10px;"><span class="out">{</span></div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"name":</span> <span class="val">"Dennis Muturi"</span>,</div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"alias":</span> <span class="val">"KBUCCI"</span>,</div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"location":</span> <span class="val">"Nairobi, Kenya"</span>,</div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"role":</span> <span class="val">"IT Support · DevOps · Cloud Security"</span>,</div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"email":</span> <span class="val">"dennismuturi8@gmail.com"</span>,</div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"languages":</span> <span class="val">["English", "Swahili"]</span>,</div>
+            <div class="terminal-line"><span class="out">&nbsp;&nbsp;"status":</span> <span class="val">"Open to Opportunities"</span></div>
+            <div class="terminal-line"><span class="out">}</span></div>
+            <div class="terminal-line" style="margin-top:12px;"><span class="prompt">$</span> <span class="cursor-blink"></span></div>
+          </div>
+        </div>
+
+        <div class="terminal-box">
+          <div class="terminal-bar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-amber"></span>
+            <span class="dot dot-green"></span>
+            <span style="margin-left:8px;">~ summary.sh</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="comment"># Proactive technologist and IT consultant</span></div>
+            <div class="terminal-line"><span class="comment"># with hands-on cloud & security experience.</span></div>
+            <div class="terminal-line" style="margin-top:10px;"><span class="prompt">$</span> <span class="cmd">echo $EXPERTISE</span></div>
+            <div class="terminal-line"><span class="val">Cloud Infrastructure · DevOps · Network Security</span></div>
+            <div class="terminal-line"><span class="val">IT Support · Server Administration</span></div>
+            <div class="terminal-line"><span class="val">Hardware Engineering · IoT Development</span></div>
+            <div class="terminal-line" style="margin-top:10px;"><span class="prompt">$</span> <span class="cmd">echo $CERTS</span></div>
+            <div class="terminal-line"><span class="val">Cloud & Network Security — Cyber Shujaa</span></div>
+            <div class="terminal-line"><span class="val">B.Tech Computer & Electronics — MKU</span></div>
+            <div class="terminal-line" style="margin-top:10px;"><span class="prompt">$</span> <span class="cursor-blink"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">technical stack</div>
+        <div class="sec-title">SKILL_MATRIX</div>
+        <div class="sec-divider"></div>
+      </div>
+      <div class="skills-grid fade-in">
+
+        <div class="skill-card">
+          <div class="skill-cat">Cloud & DevOps</div>
+          <div class="skill-item"><span class="skill-name">AWS</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Terraform</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Docker</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Kubernetes</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-cat">Network & Security</div>
+          <div class="skill-item"><span class="skill-name">Wireshark / TShark</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">TCPDump</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Network Analysis</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">DNS / HTTP / TLS</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-cat">Systems</div>
+          <div class="skill-item"><span class="skill-name">Linux (Admin)</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Windows Server</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Proxmox / TrueNAS</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">MacOS</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-cat">Hardware & Dev</div>
+          <div class="skill-item"><span class="skill-name">PCB & Circuit Design</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Arduino / NodeMCU</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">C++ (Embedded)</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:68%"></div></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-cat">Soft Skills</div>
+          <div class="skill-item"><span class="skill-name">Problem Solving</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Communication</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Team Collaboration</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Critical Thinking</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Adaptability</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Documentation</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">work history</div>
+        <div class="sec-title">EXPERIENCE_LOG</div>
+        <div class="sec-divider"></div>
+      </div>
+      <div class="timeline fade-in">
+
+        <div class="timeline-item">
+          <div class="tl-date">JUL 2024 – FEB 2025</div>
+          <div class="tl-role">IT SUPPORT TECHNICIAN</div>
+          <div class="tl-org">Eddy's Homecare Company Ltd</div>
+          <div class="tl-desc">Delivered end-to-end IT support across hardware, software, and network infrastructure. Managed server environments, troubleshot connectivity issues, and maintained system uptime for business-critical operations.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">AUG 2022 – AUG 2022</div>
+          <div class="tl-role">POLLING & COUNTING CLERK</div>
+          <div class="tl-org">Independent Electoral & Boundaries Commission — Nyeri, Kenya</div>
+          <div class="tl-desc">Supported the electoral process through accurate data handling, verification, and counting procedures under high-pressure conditions.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-date">JAN 2022 – APR 2022</div>
+          <div class="tl-role">IT DEPARTMENT ATTACHÉ (INTERN)</div>
+          <div class="tl-org">Kenya Medical Training College — Nyeri, Kenya</div>
+          <div class="tl-desc">Assisted the IT department with network maintenance, hardware troubleshooting, system setup, and user support across the campus environment.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">academic background</div>
+        <div class="sec-title">EDUCATION_DB</div>
+        <div class="sec-divider"></div>
+      </div>
+      <div class="edu-grid fade-in">
+
+        <div class="edu-card">
+          <div class="edu-degree">Cloud & Network Security</div>
+          <div class="edu-inst">Cyber Shujaa — Nairobi, Kenya</div>
+          <div class="edu-date">SEP 2025 – NOV 2025</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-degree">B.Tech — Computer & Electronics Systems</div>
+          <div class="edu-inst">Mount Kenya University — Thika, Kenya</div>
+          <div class="edu-date">MAY 2017 – AUG 2024</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-degree">Kenya Certificate of Secondary Education</div>
+          <div class="edu-inst">Leshau Boys High School — Nyahururu, Kenya</div>
+          <div class="edu-date">FEB 2013 – NOV 2016</div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-degree">Kenya Certificate of Primary Education</div>
+          <div class="edu-inst">Nyandarua Boarding Primary School — Nyahururu, Kenya</div>
+          <div class="edu-date">MAY 2010 – NOV 2012</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">engineering projects</div>
+        <div class="sec-title">PROJECT_DIR</div>
+        <div class="sec-divider"></div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-name">IoT-Based Smart Scheduling Socket &amp; Current Measuring Device</div>
+          <div class="project-tags">
+            <span class="tag">IoT</span>
+            <span class="tag">Arduino</span>
+            <span class="tag">C++</span>
+            <span class="tag">NodeMCU</span>
+            <span class="tag">Hardware</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            An open-source IoT-based smart socket system enabling remote control and scheduling of electrical appliances.
+            Designed to enhance energy efficiency, reduce electricity costs, and promote sustainability through smart home automation.
+            Integrates current sensing via the ACS712 sensor and relay-based switching controlled over Wi-Fi.
+          </p>
+          <iframe
+            class="project-embed"
+            src="https://drive.google.com/file/d/1pPQdbH2J0NC-bpNc3Iw-2mlvqfI7F80x/preview"
+            allow="autoplay"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LAB CHALLENGES -->
+  <section id="labs">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">ctf & lab writeups</div>
+        <div class="sec-title">LAB_CHALLENGES</div>
+        <div class="sec-divider"></div>
+      </div>
+
+      <!-- Lab 1 -->
+      <div class="lab-card fade-in">
+        <div class="lab-header">
+          <div class="lab-num">01</div>
+          <div class="lab-meta">
+            <div class="lab-platform">HTB ACADEMY</div>
+            <div class="lab-name">Introduction to Network Traffic Analysis</div>
+          </div>
+        </div>
+        <div class="lab-body">
+          <p class="lab-desc">
+            Explored fundamentals of network traffic analysis using Wireshark — capturing and interpreting packets,
+            identifying protocols, and detecting anomalies and security threats in live network data.
+          </p>
+          <div class="lab-skills-title">SKILLS DEMONSTRATED</div>
+          <div class="lab-skills">
+            <span class="skill-pill">Packet Capture & Analysis</span>
+            <span class="skill-pill">Protocol Identification</span>
+            <span class="skill-pill">TCP/IP & OSI Model</span>
+            <span class="skill-pill">Anomaly Detection</span>
+          </div>
+          <div class="lab-tools"><span>Tools:</span> Wireshark · TCP/IP Suite · Virtual Machines</div>
+          <iframe class="lab-embed" src="https://drive.google.com/file/d/1kgCMMzi1gKhh124QgAxbREvcqC4JICGM/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <!-- Lab 2 -->
+      <div class="lab-card fade-in">
+        <div class="lab-header">
+          <div class="lab-num">02</div>
+          <div class="lab-meta">
+            <div class="lab-platform">HTB ACADEMY</div>
+            <div class="lab-name">Web Requests</div>
+          </div>
+        </div>
+        <div class="lab-body">
+          <p class="lab-desc">
+            Deep dive into HTTP request/response cycles — exploring GET, POST, PUT, DELETE methods, headers,
+            and status codes, with hands-on traffic interception and crafted request analysis.
+          </p>
+          <div class="lab-skills-title">SKILLS DEMONSTRATED</div>
+          <div class="lab-skills">
+            <span class="skill-pill">HTTP Request/Response</span>
+            <span class="skill-pill">HTTP Methods</span>
+            <span class="skill-pill">Header & Status Code Analysis</span>
+            <span class="skill-pill">Traffic Interception</span>
+          </div>
+          <div class="lab-tools"><span>Tools:</span> Burp Suite · Browser DevTools · cURL · HTB Environment</div>
+          <iframe class="lab-embed" src="https://drive.google.com/file/d/1r8YTaeftyTS3gOFMJTz8sdtz38_W9j90/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <!-- Lab 3 -->
+      <div class="lab-card fade-in">
+        <div class="lab-header">
+          <div class="lab-num">03</div>
+          <div class="lab-meta">
+            <div class="lab-platform">TRYHACKME</div>
+            <div class="lab-name">DNS In Detail</div>
+          </div>
+        </div>
+        <div class="lab-body">
+          <p class="lab-desc">
+            Comprehensive exploration of DNS architecture — record types (A, AAAA, CNAME, MX, TXT, NS), enumeration techniques,
+            zone transfer exploitation, subdomain takeovers, and DNSSEC fundamentals.
+          </p>
+          <div class="lab-skills-title">SKILLS DEMONSTRATED</div>
+          <div class="lab-skills">
+            <span class="skill-pill">DNS Architecture</span>
+            <span class="skill-pill">Record Type Interpretation</span>
+            <span class="skill-pill">DNS Enumeration</span>
+            <span class="skill-pill">Zone Transfer Exploitation</span>
+            <span class="skill-pill">DNSSEC Awareness</span>
+            <span class="skill-pill">Subdomain Recon</span>
+          </div>
+          <div class="lab-tools"><span>Tools:</span> dig · nslookup · dnsenum · DNSRecon · subfinder · amass · nmap · Wireshark</div>
+          <iframe class="lab-embed" src="https://drive.google.com/file/d/1QfPirZEjcCQyNxzygNAV2C38MckY7O0q/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <!-- Lab 4 -->
+      <div class="lab-card fade-in">
+        <div class="lab-header">
+          <div class="lab-num">04</div>
+          <div class="lab-meta">
+            <div class="lab-platform">HANDS-ON LAB</div>
+            <div class="lab-name">Use Wireshark to Examine Network Traffic</div>
+          </div>
+        </div>
+        <div class="lab-body">
+          <p class="lab-desc">
+            Live packet capture and deep inspection using Wireshark — applying filters, following TCP/UDP streams,
+            reconstructing files, and identifying indicators of compromise across HTTP, DNS, TLS, FTP, ARP, and ICMP.
+          </p>
+          <div class="lab-skills-title">SKILLS DEMONSTRATED</div>
+          <div class="lab-skills">
+            <span class="skill-pill">Capture Filters</span>
+            <span class="skill-pill">Display Filters</span>
+            <span class="skill-pill">Stream Reconstruction</span>
+            <span class="skill-pill">Protocol Analysis</span>
+            <span class="skill-pill">IOC Identification</span>
+            <span class="skill-pill">PCAP Export & Reporting</span>
+          </div>
+          <div class="lab-tools"><span>Tools:</span> Wireshark · tshark · tcpdump · Virtual Machines · Browser DevTools</div>
+          <iframe class="lab-embed" src="https://drive.google.com/file/d/1KeT7F2Lih5nrnFr5X5gE15aCNv4BRmzl/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">get in touch</div>
+        <div class="sec-title">CONNECT</div>
+        <div class="sec-divider"></div>
+      </div>
+      <div class="contact-grid fade-in">
+        <div>
+          <div class="contact-cta">Let's Work Together</div>
+          <p class="contact-sub">
+            Open to IT support, DevOps, cloud infrastructure, and network security opportunities across Kenya and remotely.
+            Feel free to reach out via any channel below.
+          </p>
+          <a href="mailto:dennismuturi8@gmail.com" class="btn btn-primary">send_message</a>
+        </div>
+        <div>
+          <a href="mailto:dennismuturi8@gmail.com" class="contact-link">
+            <span class="link-icon">✉</span>
+            <span><span class="link-label">EMAIL</span>dennismuturi8@gmail.com</span>
+          </a>
+          <a href="https://linkedin.com/in/dennismuturi8" target="_blank" class="contact-link">
+            <span class="link-icon">in</span>
+            <span><span class="link-label">LINKEDIN</span>linkedin.com/in/dennismuturi8</span>
+          </a>
+          <a href="https://github.com/dennismuturi8" target="_blank" class="contact-link">
+            <span class="link-icon">⌥</span>
+            <span><span class="link-label">GITHUB</span>github.com/dennismuturi8</span>
+          </a>
+          <a href="https://twitter.com/kbucci_dennis" target="_blank" class="contact-link">
+            <span class="link-icon">✕</span>
+            <span><span class="link-label">TWITTER / X</span>@kbucci_dennis</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>~/</span>dennismuturi8.github.io &nbsp;|&nbsp; <span>©</span> 2026 Dennis Muturi · IT Support · DevOps · Cloud Security &nbsp;|&nbsp; Built with <span>&lt;/&gt;</span> in Nairobi, Kenya
+  </footer>
+
+  <script>
+    // STATUS BAR CLOCK
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('sb-time').textContent = `[TIME: ${h}:${m}:${s}]`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // TYPING EFFECT
+    const phrases = [
+      'IT Support & Cloud Security Engineer',
+      'Network Security Professional',
+      'Infrastructure & DevOps Practitioner',
+      'Hardware & IoT Developer',
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const target = document.getElementById('typing-target');
+
+    function type() {
+      const current = phrases[pi];
+      if (!deleting) {
+        target.innerHTML = current.substring(0, ci + 1) + '<span class="cursor-blink"></span>';
+        ci++;
+        if (ci === current.length) { deleting = true; setTimeout(type, 2000); return; }
+      } else {
+        target.innerHTML = current.substring(0, ci - 1) + '<span class="cursor-blink"></span>';
+        ci--;
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+      }
+      setTimeout(type, deleting ? 40 : 80);
+    }
+    type();
+
+    // FADE-IN ON SCROLL
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ACTIVE NAV HIGHLIGHT
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+  </script>
+</body>
+</html>
