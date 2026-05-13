@@ -752,6 +752,197 @@
       nav { justify-content: center; }
     }
 
+    /* ── GITHUB REPOS ── */
+    #github { background: var(--bg); }
+
+    .gh-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .gh-live-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+      border: 1px solid var(--green-muted);
+      padding: 4px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 2px;
+    }
+
+    .gh-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    .gh-filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .gh-filter {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+
+    .gh-filter:hover,
+    .gh-filter.active {
+      border-color: var(--green-dim);
+      color: var(--green);
+      background: rgba(0,255,65,0.05);
+    }
+
+    .gh-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .gh-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+
+    .gh-card:hover {
+      border-color: var(--green-dim);
+      transform: translateY(-2px);
+    }
+
+    .gh-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .gh-repo-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--text-dim);
+    }
+
+    .gh-repo-name {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--green);
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .gh-repo-visibility {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      flex-shrink: 0;
+      letter-spacing: 1px;
+    }
+
+    .gh-repo-desc {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .gh-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-top: auto;
+    }
+
+    .gh-lang {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+
+    .gh-lang-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .gh-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+
+    .gh-updated {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
+
+    .gh-loading {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .gh-loading .spinner {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 12px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .gh-error {
+      text-align: center;
+      padding: 40px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--red);
+      border: 1px solid rgba(255,49,49,0.2);
+      background: rgba(255,49,49,0.04);
+    }
+
+    .gh-repo-count {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
     /* ── ANIMATIONS ── */
     .fade-in {
       opacity: 0;
@@ -776,6 +967,7 @@
       <li><a href="#skills">skills</a></li>
       <li><a href="#experience">experience</a></li>
       <li><a href="#projects">projects</a></li>
+      <li><a href="#github">github</a></li>
       <li><a href="#labs">labs</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
@@ -1054,6 +1246,35 @@
     </div>
   </section>
 
+  <!-- GITHUB REPOS -->
+  <section id="github">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">open source work</div>
+        <div class="sec-title">GITHUB_REPOS</div>
+        <div class="sec-divider"></div>
+      </div>
+
+      <div class="gh-meta-bar fade-in">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <div class="gh-live-badge">
+            <span class="gh-live-dot"></span>
+            LIVE FROM GITHUB API
+          </div>
+          <span class="gh-repo-count" id="gh-count"></span>
+        </div>
+        <div class="gh-filter-bar" id="gh-filters"></div>
+      </div>
+
+      <div id="gh-grid" class="gh-grid">
+        <div class="gh-loading">
+          <span class="spinner">◌</span>
+          fetching repos from github...
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- LAB CHALLENGES -->
   <section id="labs">
     <div class="container">
@@ -1273,6 +1494,122 @@
         a.classList.toggle('active', a.getAttribute('href') === '#' + current);
       });
     });
+    // ── GITHUB REPOS ──
+    const GITHUB_USER    = 'dennismuturi8';
+    const EXCLUDED_REPOS = [`${GITHUB_USER}.github.io`]; // repos to hide
+
+    const LANG_COLORS = {
+      JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572A5',
+      HTML:       '#e34c26', CSS: '#563d7c', Shell: '#89e051',
+      'C++':      '#f34b7d', C: '#555555', Java: '#b07219',
+      Dockerfile: '#384d54', HCL: '#844FBA', Go: '#00ADD8',
+      Ruby:       '#701516', Rust: '#dea584', Jupyter Notebook: '#DA5B0B',
+    };
+
+    function timeAgo(dateStr) {
+      const diff = Date.now() - new Date(dateStr);
+      const days = Math.floor(diff / 86400000);
+      if (days === 0) return 'today';
+      if (days === 1) return '1 day ago';
+      if (days < 30)  return `${days} days ago`;
+      if (days < 365) return `${Math.floor(days/30)}mo ago`;
+      return `${Math.floor(days/365)}yr ago`;
+    }
+
+    function renderRepos(repos) {
+      const grid = document.getElementById('gh-grid');
+      if (!repos.length) {
+        grid.innerHTML = '<div class="gh-error">No repositories found.</div>';
+        return;
+      }
+
+      grid.innerHTML = repos.map(r => {
+        const langColor = LANG_COLORS[r.language] || '#6b9e6b';
+        const langBadge = r.language
+          ? `<span class="gh-lang"><span class="gh-lang-dot" style="background:${langColor}"></span>${r.language}</span>`
+          : '';
+        const stars = r.stargazers_count
+          ? `<span class="gh-stat">★ ${r.stargazers_count}</span>` : '';
+        const forks = r.forks_count
+          ? `<span class="gh-stat">⑂ ${r.forks_count}</span>` : '';
+        const desc = r.description
+          ? r.description
+          : '<span style="opacity:0.4;font-style:italic;">no description provided</span>';
+
+        return `
+          <a class="gh-card fade-in" href="${r.html_url}" target="_blank" rel="noopener" data-lang="${r.language || 'Other'}">
+            <div class="gh-card-top">
+              <span class="gh-repo-icon">⌥</span>
+              <span class="gh-repo-name">${r.name}</span>
+              <span class="gh-repo-visibility">${r.private ? 'PRIVATE' : 'PUBLIC'}</span>
+            </div>
+            <div class="gh-repo-desc">${desc}</div>
+            <div class="gh-card-footer">
+              ${langBadge}${stars}${forks}
+              <span class="gh-updated">↻ ${timeAgo(r.pushed_at)}</span>
+            </div>
+          </a>`;
+      }).join('');
+
+      // re-observe newly injected fade-in elements
+      document.querySelectorAll('.gh-card.fade-in').forEach(el => observer.observe(el));
+    }
+
+    function buildFilters(repos) {
+      const langs = [...new Set(repos.map(r => r.language).filter(Boolean))];
+      const bar = document.getElementById('gh-filters');
+      const allBtn = document.createElement('button');
+      allBtn.className = 'gh-filter active';
+      allBtn.textContent = 'all';
+      allBtn.dataset.lang = 'all';
+      bar.appendChild(allBtn);
+
+      langs.forEach(lang => {
+        const btn = document.createElement('button');
+        btn.className = 'gh-filter';
+        btn.textContent = lang.toLowerCase();
+        btn.dataset.lang = lang;
+        bar.appendChild(btn);
+      });
+
+      bar.addEventListener('click', e => {
+        const btn = e.target.closest('.gh-filter');
+        if (!btn) return;
+        bar.querySelectorAll('.gh-filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const selected = btn.dataset.lang;
+        document.querySelectorAll('.gh-card').forEach(card => {
+          card.style.display =
+            selected === 'all' || card.dataset.lang === selected ? '' : 'none';
+        });
+      });
+    }
+
+    async function fetchGithubRepos() {
+      const grid  = document.getElementById('gh-grid');
+      const count = document.getElementById('gh-count');
+      try {
+        const res  = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=pushed&per_page=100`);
+        if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+        const all  = await res.json();
+        const repos = all.filter(r =>
+          !r.fork && !EXCLUDED_REPOS.includes(r.name)
+        );
+        count.textContent = `[ ${repos.length} repositories ]`;
+        buildFilters(repos);
+        renderRepos(repos);
+      } catch (err) {
+        grid.innerHTML = `
+          <div class="gh-error" style="grid-column:1/-1;">
+            ✕ Failed to load repositories.<br>
+            <span style="opacity:0.6;font-size:10px;">${err.message}</span><br><br>
+            <a href="https://github.com/${GITHUB_USER}?tab=repositories" target="_blank"
+               style="color:var(--green);text-decoration:none;">→ View on GitHub directly</a>
+          </div>`;
+      }
+    }
+
+    fetchGithubRepos();
   </script>
 </body>
 </html>
