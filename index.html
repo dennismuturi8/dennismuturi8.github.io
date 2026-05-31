@@ -752,6 +752,114 @@
       nav { justify-content: center; }
     }
 
+    /* ── CERTIFICATIONS ── */
+    #certifications { background: var(--bg2); }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .cert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--teal), var(--green));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .cert-card:hover {
+      border-color: var(--teal);
+      transform: translateY(-2px);
+    }
+
+    .cert-card:hover::before { opacity: 1; }
+
+    .cert-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cert-badge-img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px rgba(0,229,255,0.15));
+    }
+
+    .cert-meta { flex: 1; }
+
+    .cert-issuer {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--teal);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .cert-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+    }
+
+    .cert-date {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--amber);
+      margin-top: 6px;
+    }
+
+    .cert-desc {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .cert-verify {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--teal);
+      text-decoration: none;
+      border: 1px solid rgba(0,229,255,0.3);
+      padding: 6px 14px;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      transition: all 0.2s;
+    }
+
+    .cert-verify:hover {
+      background: rgba(0,229,255,0.08);
+      border-color: var(--teal);
+    }
+
+    .cert-verify::before { content: '✓ '; }
+
     /* ── GITHUB REPOS ── */
     #github { background: var(--bg); }
 
@@ -966,6 +1074,7 @@
       <li><a href="#about">about</a></li>
       <li><a href="#skills">skills</a></li>
       <li><a href="#experience">experience</a></li>
+      <li><a href="#certifications">certs</a></li>
       <li><a href="#projects">projects</a></li>
       <li><a href="#github">github</a></li>
       <li><a href="#labs">labs</a></li>
@@ -1002,10 +1111,10 @@
             <span class="badge">Terraform</span>
             <span class="badge">Docker</span>
             <span class="badge">Kubernetes</span>
-            <span class="badge">Prometheus & Grafana</span>
             <span class="badge">Linux</span>
             <span class="badge">Wireshark</span>
-            <span class="badge">Proxmox & TrueNAS</span>
+            <span class="badge">Proxmox</span>
+            <span class="badge">TrueNAS</span>
           </div>
           <div class="hero-links">
             <a href="#projects" class="btn btn-primary">view_projects</a>
@@ -1202,6 +1311,77 @@
           <div class="edu-degree">Kenya Certificate of Primary Education</div>
           <div class="edu-inst">Nyandarua Boarding Primary School — Nyahururu, Kenya</div>
           <div class="edu-date">MAY 2010 – NOV 2012</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container">
+      <div class="sec-header fade-in">
+        <div class="sec-label">verified credentials</div>
+        <div class="sec-title">CERTIFICATIONS</div>
+        <div class="sec-divider"></div>
+      </div>
+      <div class="cert-grid fade-in">
+
+        <div class="cert-card">
+          <div class="cert-top">
+            <img
+              class="cert-badge-img"
+              src="https://images.credly.com/images/97a95d07-04c3-4afb-952a-6bcf46ddb87e/linkedin_thumb_blob"
+              alt="LFS101 Introduction to Linux Badge"
+            />
+            <div class="cert-meta">
+              <div class="cert-issuer">The Linux Foundation</div>
+              <div class="cert-name">LFS101: Introduction to Linux</div>
+              <div class="cert-date">↳ Issued May 31, 2026</div>
+            </div>
+          </div>
+          <p class="cert-desc">
+            Proficiency in navigating and managing configurations across major Linux distributions via both GUI and command line. Covers system startup, file operations, network management, basic scripting, and local security principles including root privileges and password management.
+          </p>
+          <a href="https://www.credly.com/badges/c141b566-0366-47e4-972a-8105de2e42ae" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-top">
+            <img
+              class="cert-badge-img"
+              src="https://images.credly.com/images/4b5a8636-c554-482d-bbdc-7925fb3624c3/linkedin_thumb_blob"
+              alt="LFS158 Introduction to Kubernetes Badge"
+            />
+            <div class="cert-meta">
+              <div class="cert-issuer">The Linux Foundation</div>
+              <div class="cert-name">LFS158: Introduction to Kubernetes</div>
+              <div class="cert-date">↳ Issued May 26, 2026</div>
+            </div>
+          </div>
+          <p class="cert-desc">
+            Ability to set up and manage Kubernetes clusters using Minikube, deploy and access applications efficiently. Covers Kubernetes architecture, container orchestration, volume management, network services configuration, and community contribution practices.
+          </p>
+          <a href="https://www.credly.com/badges/7d493538-8fe5-4d00-96f9-48b84762a31c" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-top">
+            <img
+              class="cert-badge-img"
+              src="https://images.credly.com/images/7404ca0d-98e1-48b6-a2a3-de8d7dcd85b5/linkedin_thumb_blob"
+              alt="LFS250 Kubernetes and Cloud Native Essentials Badge"
+            />
+            <div class="cert-meta">
+              <div class="cert-issuer">The Linux Foundation</div>
+              <div class="cert-name">LFS250: Kubernetes and Cloud Native Essentials</div>
+              <div class="cert-date">↳ Issued May 26, 2026</div>
+            </div>
+          </div>
+          <p class="cert-desc">
+            Understanding of cloud native architecture and container orchestration versus legacy systems. Covers Kubernetes object management for workloads, networking and storage, cloud native observability, and CI/CD & GitOps delivery pipelines integrated with Kubernetes.
+          </p>
+          <a href="https://www.credly.com/badges/1fe64b4d-669c-4422-b035-ece2ac4557dd" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
         </div>
 
       </div>
