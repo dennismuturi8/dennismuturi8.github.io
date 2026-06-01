@@ -1282,7 +1282,8 @@
       flex-shrink: 0;
       gap: 12px;
       position: relative;
-      z-index: 2;
+      z-index: 10;
+      pointer-events: all;
     }
 
     .modal-title {
@@ -1336,7 +1337,7 @@
       line-height: 1;
       padding: 0;
       position: relative;
-      z-index: 3;
+      z-index: 11;
     }
 
     .modal-close:hover {
@@ -2065,15 +2066,19 @@
       if (_modal.classList.contains('open') && _iframe.src !== '') _hideLoader();
     });
 
-    // Close button — stopPropagation prevents backdrop double-fire
-    _closeBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
+    // Close button — mousedown fires BEFORE iframe steals focus on click
+    _closeBtn.addEventListener('mousedown', function(e) {
+      e.preventDefault();   // Prevents focus transfer to button
+      e.stopPropagation();  // Prevents backdrop handler from also firing
       closeModal();
     });
 
-    // Backdrop click
-    _modal.addEventListener('click', function(e) {
-      if (e.target === _modal) closeModal();
+    // Backdrop — also mousedown for consistency
+    _modal.addEventListener('mousedown', function(e) {
+      if (e.target === _modal) {
+        e.preventDefault();
+        closeModal();
+      }
     });
 
     // Escape key
