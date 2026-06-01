@@ -1281,6 +1281,8 @@
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
       gap: 12px;
+      position: relative;
+      z-index: 2;
     }
 
     .modal-title {
@@ -1322,28 +1324,63 @@
       border: 1px solid var(--border);
       color: var(--text-dim);
       font-family: 'Share Tech Mono', monospace;
-      font-size: 14px;
-      width: 32px;
-      height: 32px;
+      font-size: 16px;
+      width: 34px;
+      height: 34px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
       flex-shrink: 0;
+      line-height: 1;
+      padding: 0;
+      position: relative;
+      z-index: 3;
     }
 
     .modal-close:hover {
       border-color: var(--red);
       color: var(--red);
+      background: rgba(255,49,49,0.08);
+    }
+
+    #modal-loader {
+      position: absolute;
+      inset: 48px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: var(--bg);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      z-index: 1;
+      letter-spacing: 2px;
+    }
+
+    .modal-spinner {
+      font-size: 28px;
+      color: var(--green);
+      animation: spin 1s linear infinite;
+      display: block;
     }
 
     #modal-iframe {
-      flex: 1;
+      position: absolute;
+      inset: 48px 0 0 0;
       width: 100%;
+      height: calc(100% - 48px);
       border: none;
       background: #000;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
+
+    #modal-iframe.loaded { opacity: 1; }
 
     /* ── ANIMATIONS ── */
     .fade-in {
@@ -1962,53 +1999,94 @@
       <span class="modal-title" id="modal-title-text">Document</span>
       <div class="modal-actions">
         <a id="modal-external-link" href="#" target="_blank" rel="noopener" class="modal-open-btn">↗ OPEN IN DRIVE</a>
-        <button class="modal-close" onclick="closeModal()" title="Close">✕</button>
+        <button id="modal-close-btn" class="modal-close" title="Close [Esc]">✕</button>
       </div>
+    </div>
+    <div id="modal-loader">
+      <span class="modal-spinner">◌</span>
+      <span>loading document...</span>
     </div>
     <iframe id="modal-iframe" src="" allow="autoplay" allowfullscreen></iframe>
   </div>
 
   <script>
     // ── MODAL ──
+    let _modalHistoryPushed = false;
+    let _loaderTimer = null;
+
+    const _modal    = document.getElementById('doc-modal');
+    const _iframe   = document.getElementById('modal-iframe');
+    const _loader   = document.getElementById('modal-loader');
+    const _titleEl  = document.getElementById('modal-title-text');
+    const _extLink  = document.getElementById('modal-external-link');
+    const _closeBtn = document.getElementById('modal-close-btn');
+
+    function _hideLoader() {
+      _loader.style.display = 'none';
+      _iframe.classList.add('loaded');
+      if (_loaderTimer) { clearTimeout(_loaderTimer); _loaderTimer = null; }
+    }
+
+    function _dismissModal() {
+      _modal.classList.remove('open');
+      document.body.style.overflow = '';
+      _iframe.classList.remove('loaded');
+      _iframe.src = '';
+      _loader.style.display = 'flex';
+      if (_loaderTimer) { clearTimeout(_loaderTimer); _loaderTimer = null; }
+    }
+
     function openModal(title, embedUrl, driveUrl) {
-      const modal = document.getElementById('doc-modal');
-      document.getElementById('modal-title-text').textContent = title;
-      document.getElementById('modal-iframe').src = embedUrl;
-      document.getElementById('modal-external-link').href = driveUrl;
-      modal.classList.add('open');
+      _titleEl.textContent = title;
+      _extLink.href = driveUrl;
+      _iframe.classList.remove('loaded');
+      _iframe.src = '';
+      _loader.style.display = 'flex';
+      _modal.classList.add('open');
       document.body.style.overflow = 'hidden';
-      // Push a history state so the back button closes the modal
-      history.pushState({ modalOpen: true }, '', '#doc');
+      history.pushState({ modalOpen: true }, '');
+      _modalHistoryPushed = true;
+      requestAnimationFrame(() => { _iframe.src = embedUrl; });
+      if (_loaderTimer) clearTimeout(_loaderTimer);
+      _loaderTimer = setTimeout(_hideLoader, 10000);
     }
 
     function closeModal() {
-      const modal = document.getElementById('doc-modal');
-      if (!modal.classList.contains('open')) return;
-      modal.classList.remove('open');
-      document.getElementById('modal-iframe').src = '';
-      document.body.style.overflow = '';
-      // If we're on the #doc state, go back to remove it from history
-      if (location.hash === '#doc') history.back();
+      if (!_modal.classList.contains('open')) return;
+      _dismissModal();
+      if (_modalHistoryPushed) {
+        _modalHistoryPushed = false;
+        history.back();
+      }
     }
 
-    // Back button closes modal instead of leaving the page
-    window.addEventListener('popstate', function(e) {
-      const modal = document.getElementById('doc-modal');
-      if (modal.classList.contains('open')) {
-        modal.classList.remove('open');
-        document.getElementById('modal-iframe').src = '';
-        document.body.style.overflow = '';
-      }
+    // Iframe loaded — swap loader for content
+    _iframe.addEventListener('load', function() {
+      if (_modal.classList.contains('open') && _iframe.src !== '') _hideLoader();
     });
 
-    // Close modal on backdrop click
-    document.getElementById('doc-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
+    // Close button — stopPropagation prevents backdrop double-fire
+    _closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeModal();
     });
 
-    // Close modal on Escape key
+    // Backdrop click
+    _modal.addEventListener('click', function(e) {
+      if (e.target === _modal) closeModal();
+    });
+
+    // Escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // Browser back button
+    window.addEventListener('popstate', function() {
+      if (_modal.classList.contains('open')) {
+        _modalHistoryPushed = false;
+        _dismissModal();
+      }
     });
 
     // ── STATUS BAR CLOCK ──
