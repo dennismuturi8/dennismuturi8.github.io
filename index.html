@@ -1051,6 +1051,300 @@
       color: var(--text-dim);
     }
 
+    /* ── DOC TILE (replaces inline iframes) ── */
+    .doc-tile {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(0,255,65,0.03);
+      border: 1px dashed var(--green-muted);
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .doc-tile:hover {
+      background: rgba(0,255,65,0.07);
+      border-color: var(--green-dim);
+      border-style: solid;
+    }
+
+    .doc-tile:hover .doc-tile-arrow { transform: translateX(4px); }
+
+    .doc-tile-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .doc-tile-body { flex: 1; }
+
+    .doc-tile-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      color: var(--green-dim);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .doc-tile-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .doc-tile-arrow {
+      font-size: 18px;
+      color: var(--green-dim);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    /* ── MODAL ── */
+    #doc-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(5, 10, 5, 0.92);
+      backdrop-filter: blur(6px);
+      flex-direction: column;
+    }
+
+    #doc-modal.open { display: flex; }
+
+    .modal-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--green);
+      letter-spacing: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 70%;
+    }
+
+    .modal-title::before {
+      content: '📄 ';
+      margin-right: 6px;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .modal-open-btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--teal);
+      text-decoration: none;
+      border: 1px solid rgba(0,229,255,0.3);
+      padding: 5px 12px;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .modal-open-btn:hover {
+      background: rgba(0,229,255,0.08);
+      border-color: var(--teal);
+    }
+
+    .modal-close-btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 18px;
+      color: var(--text-dim);
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      transition: color 0.2s;
+    }
+
+    .modal-close-btn:hover { color: var(--red); }
+
+    #modal-iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #000;
+    }
+
+    .modal-loading {
+      position: absolute;
+      inset: 48px 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      pointer-events: none;
+    }
+
+    /* ── DOC TILE ── */
+    .doc-tile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      margin-top: 4px;
+    }
+
+    .doc-tile:hover {
+      border-color: var(--green-dim);
+      background: rgba(0,255,65,0.04);
+      transform: translateX(4px);
+    }
+
+    .doc-tile-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      filter: grayscale(0.3);
+    }
+
+    .doc-tile-body {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+
+    .doc-tile-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--teal);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .doc-tile-name {
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .doc-tile-arrow {
+      font-size: 18px;
+      color: var(--green-dim);
+      flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .doc-tile:hover .doc-tile-arrow {
+      transform: translateX(4px);
+      color: var(--green);
+    }
+
+    /* ── MODAL ── */
+    #doc-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(5, 10, 5, 0.92);
+      backdrop-filter: blur(6px);
+      flex-direction: column;
+    }
+
+    #doc-modal.open { display: flex; }
+
+    .modal-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      gap: 12px;
+    }
+
+    .modal-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .modal-open-btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .modal-open-btn:hover {
+      color: var(--green);
+      border-color: var(--green-dim);
+    }
+
+    .modal-close {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .modal-close:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    #modal-iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #000;
+    }
+
     /* ── ANIMATIONS ── */
     .fade-in {
       opacity: 0;
@@ -1065,6 +1359,19 @@
   </style>
 </head>
 <body>
+
+  <!-- DOCUMENT MODAL -->
+  <div id="doc-modal" role="dialog" aria-modal="true" aria-label="Document viewer">
+    <div class="modal-topbar">
+      <span class="modal-title" id="modal-title">Document</span>
+      <div class="modal-actions">
+        <a id="modal-open-link" href="#" target="_blank" rel="noopener" class="modal-open-btn">⤢ OPEN IN DRIVE</a>
+        <button class="modal-close-btn" id="modal-close" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="modal-loading" id="modal-loading">◌ loading document...</div>
+    <iframe id="modal-iframe" src="" allow="autoplay" title="Document preview"></iframe>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -1414,12 +1721,14 @@
             Designed to enhance energy efficiency, reduce electricity costs, and promote sustainability through smart home automation.
             Integrates current sensing via the ACS712 sensor and relay-based switching controlled over Wi-Fi.
           </p>
-          <iframe
-            class="project-embed"
-            src="https://drive.google.com/file/d/1pPQdbH2J0NC-bpNc3Iw-2mlvqfI7F80x/preview"
-            allow="autoplay"
-            loading="lazy"
-          ></iframe>
+          <button class="doc-tile" onclick="openModal('IoT-Based Smart Scheduling Socket & Current Measuring Device — Full Report', 'https://drive.google.com/file/d/1pPQdbH2J0NC-bpNc3Iw-2mlvqfI7F80x/preview', 'https://drive.google.com/file/d/1pPQdbH2J0NC-bpNc3Iw-2mlvqfI7F80x/view')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">Project Report</span>
+              <span class="doc-tile-name">IoT Smart Scheduling Socket — Full Documentation</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
       </div>
 
@@ -1486,7 +1795,14 @@
             <span class="skill-pill">Anomaly Detection</span>
           </div>
           <div class="lab-tools"><span>Tools:</span> Wireshark · TCP/IP Suite · Virtual Machines</div>
-          <iframe class="lab-embed" src="https://drive.google.com/file/d/1kgCMMzi1gKhh124QgAxbREvcqC4JICGM/preview" allow="autoplay" loading="lazy"></iframe>
+          <button class="doc-tile" onclick="openModal('Lab 01 — Introduction to Network Traffic Analysis', 'https://drive.google.com/file/d/1kgCMMzi1gKhh124QgAxbREvcqC4JICGM/preview', 'https://drive.google.com/file/d/1kgCMMzi1gKhh124QgAxbREvcqC4JICGM/view')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">HTB Academy · Lab Writeup</span>
+              <span class="doc-tile-name">Introduction to Network Traffic Analysis</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
       </div>
 
@@ -1512,7 +1828,14 @@
             <span class="skill-pill">Traffic Interception</span>
           </div>
           <div class="lab-tools"><span>Tools:</span> Burp Suite · Browser DevTools · cURL · HTB Environment</div>
-          <iframe class="lab-embed" src="https://drive.google.com/file/d/1r8YTaeftyTS3gOFMJTz8sdtz38_W9j90/preview" allow="autoplay" loading="lazy"></iframe>
+          <button class="doc-tile" onclick="openModal('Lab 02 — Web Requests', 'https://drive.google.com/file/d/1r8YTaeftyTS3gOFMJTz8sdtz38_W9j90/preview', 'https://drive.google.com/file/d/1r8YTaeftyTS3gOFMJTz8sdtz38_W9j90/view')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">HTB Academy · Lab Writeup</span>
+              <span class="doc-tile-name">Web Requests</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
       </div>
 
@@ -1540,7 +1863,14 @@
             <span class="skill-pill">Subdomain Recon</span>
           </div>
           <div class="lab-tools"><span>Tools:</span> dig · nslookup · dnsenum · DNSRecon · subfinder · amass · nmap · Wireshark</div>
-          <iframe class="lab-embed" src="https://drive.google.com/file/d/1QfPirZEjcCQyNxzygNAV2C38MckY7O0q/preview" allow="autoplay" loading="lazy"></iframe>
+          <button class="doc-tile" onclick="openModal('Lab 03 — DNS In Detail', 'https://drive.google.com/file/d/1QfPirZEjcCQyNxzygNAV2C38MckY7O0q/preview', 'https://drive.google.com/file/d/1QfPirZEjcCQyNxzygNAV2C38MckY7O0q/view')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">TryHackMe · Lab Writeup</span>
+              <span class="doc-tile-name">DNS In Detail</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
       </div>
 
@@ -1568,7 +1898,14 @@
             <span class="skill-pill">PCAP Export & Reporting</span>
           </div>
           <div class="lab-tools"><span>Tools:</span> Wireshark · tshark · tcpdump · Virtual Machines · Browser DevTools</div>
-          <iframe class="lab-embed" src="https://drive.google.com/file/d/1KeT7F2Lih5nrnFr5X5gE15aCNv4BRmzl/preview" allow="autoplay" loading="lazy"></iframe>
+          <button class="doc-tile" onclick="openModal('Lab 04 — Use Wireshark to Examine Network Traffic', 'https://drive.google.com/file/d/1KeT7F2Lih5nrnFr5X5gE15aCNv4BRmzl/preview', 'https://drive.google.com/file/d/1KeT7F2Lih5nrnFr5X5gE15aCNv4BRmzl/view')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">Hands-On Lab · Writeup</span>
+              <span class="doc-tile-name">Use Wireshark to Examine Network Traffic</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
       </div>
 
@@ -1619,8 +1956,47 @@
     <span>~/</span>dennismuturi8.github.io &nbsp;|&nbsp; <span>©</span> 2026 Dennis Muturi · IT Support · DevOps · Cloud Security &nbsp;|&nbsp; Built with <span>&lt;/&gt;</span> in Nairobi, Kenya
   </footer>
 
+  <!-- DOCUMENT MODAL -->
+  <div id="doc-modal" role="dialog" aria-modal="true">
+    <div class="modal-topbar">
+      <span class="modal-title" id="modal-title-text">Document</span>
+      <div class="modal-actions">
+        <a id="modal-external-link" href="#" target="_blank" rel="noopener" class="modal-open-btn">↗ OPEN IN DRIVE</a>
+        <button class="modal-close" onclick="closeModal()" title="Close">✕</button>
+      </div>
+    </div>
+    <iframe id="modal-iframe" src="" allow="autoplay" allowfullscreen></iframe>
+  </div>
+
   <script>
-    // STATUS BAR CLOCK
+    // ── MODAL ──
+    function openModal(title, embedUrl, driveUrl) {
+      const modal = document.getElementById('doc-modal');
+      document.getElementById('modal-title-text').textContent = title;
+      document.getElementById('modal-iframe').src = embedUrl;
+      document.getElementById('modal-external-link').href = driveUrl;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('doc-modal');
+      modal.classList.remove('open');
+      document.getElementById('modal-iframe').src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('doc-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ── STATUS BAR CLOCK ──
     function updateClock() {
       const now = new Date();
       const h = String(now.getHours()).padStart(2, '0');
