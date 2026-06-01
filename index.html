@@ -1977,14 +1977,29 @@
       document.getElementById('modal-external-link').href = driveUrl;
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
+      // Push a history state so the back button closes the modal
+      history.pushState({ modalOpen: true }, '', '#doc');
     }
 
     function closeModal() {
       const modal = document.getElementById('doc-modal');
+      if (!modal.classList.contains('open')) return;
       modal.classList.remove('open');
       document.getElementById('modal-iframe').src = '';
       document.body.style.overflow = '';
+      // If we're on the #doc state, go back to remove it from history
+      if (location.hash === '#doc') history.back();
     }
+
+    // Back button closes modal instead of leaving the page
+    window.addEventListener('popstate', function(e) {
+      const modal = document.getElementById('doc-modal');
+      if (modal.classList.contains('open')) {
+        modal.classList.remove('open');
+        document.getElementById('modal-iframe').src = '';
+        document.body.style.overflow = '';
+      }
+    });
 
     // Close modal on backdrop click
     document.getElementById('doc-modal').addEventListener('click', function(e) {
