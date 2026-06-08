@@ -1383,6 +1383,24 @@
 
     #modal-iframe.loaded { opacity: 1; }
 
+    #modal-img {
+      position: absolute;
+      inset: 48px 0 0 0;
+      width: 100%;
+      height: calc(100% - 48px);
+      object-fit: contain;
+      background: #0a0f0a;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: none;
+      padding: 24px;
+    }
+
+    #modal-img.loaded {
+      opacity: 1;
+    }
+
     /* ── ANIMATIONS ── */
     .fade-in {
       opacity: 0;
@@ -1674,78 +1692,82 @@
 
         <div class="cert-card">
           <div class="cert-top">
-            <img
-              class="cert-badge-img"
-              src="https://images.credly.com/images/97a95d07-04c3-4afb-952a-6bcf46ddb87e/linkedin_thumb_blob"
-              alt="LFS101 Introduction to Linux Badge"
-            />
+            <img class="cert-badge-img" src="https://images.credly.com/images/97a95d07-04c3-4afb-952a-6bcf46ddb87e/linkedin_thumb_blob" alt="LFS101 Badge"/>
             <div class="cert-meta">
               <div class="cert-issuer">The Linux Foundation</div>
               <div class="cert-name">LFS101: Introduction to Linux</div>
               <div class="cert-date">↳ Issued May 31, 2026</div>
             </div>
           </div>
-          <p class="cert-desc">
-            Proficiency in navigating and managing configurations across major Linux distributions via both GUI and command line. Covers system startup, file operations, network management, basic scripting, and local security principles including root privileges and password management.
-          </p>
-          <a href="https://www.credly.com/badges/c141b566-0366-47e4-972a-8105de2e42ae" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
+          <p class="cert-desc">Proficiency in navigating and managing configurations across major Linux distributions via both GUI and command line. Covers system startup, file operations, network management, basic scripting, and local security principles including root privileges and password management.</p>
+          <button class="doc-tile" onclick="openModal('LFS101: Introduction to Linux — Certificate', 'https://drive.google.com/file/d/1eziV8ptFtnxxKpyQDaeodMfw6IUaroXy/preview', 'https://drive.google.com/file/d/1eziV8ptFtnxxKpyQDaeodMfw6IUaroXy/view', 'iframe')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">The Linux Foundation · Certificate PDF</span>
+              <span class="doc-tile-name">View Certificate</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
 
         <div class="cert-card">
           <div class="cert-top">
-            <img
-              class="cert-badge-img"
-              src="https://images.credly.com/images/4b5a8636-c554-482d-bbdc-7925fb3624c3/linkedin_thumb_blob"
-              alt="LFS158 Introduction to Kubernetes Badge"
-            />
+            <img class="cert-badge-img" src="https://images.credly.com/images/4b5a8636-c554-482d-bbdc-7925fb3624c3/linkedin_thumb_blob" alt="LFS158 Badge"/>
             <div class="cert-meta">
               <div class="cert-issuer">The Linux Foundation</div>
               <div class="cert-name">LFS158: Introduction to Kubernetes</div>
               <div class="cert-date">↳ Issued May 26, 2026</div>
             </div>
           </div>
-          <p class="cert-desc">
-            Ability to set up and manage Kubernetes clusters using Minikube, deploy and access applications efficiently. Covers Kubernetes architecture, container orchestration, volume management, network services configuration, and community contribution practices.
-          </p>
-          <a href="https://www.credly.com/badges/7d493538-8fe5-4d00-96f9-48b84762a31c" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
+          <p class="cert-desc">Ability to set up and manage Kubernetes clusters using Minikube, deploy and access applications efficiently. Covers Kubernetes architecture, container orchestration, volume management, network services configuration, and community contribution practices.</p>
+          <button class="doc-tile" onclick="openModal('LFS158: Introduction to Kubernetes — Certificate', 'https://drive.google.com/file/d/11AzoeUfaPzW8hDHSBmqsMYarFmaupYX3/preview', 'https://drive.google.com/file/d/11AzoeUfaPzW8hDHSBmqsMYarFmaupYX3/view', 'iframe')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">The Linux Foundation · Certificate PDF</span>
+              <span class="doc-tile-name">View Certificate</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
 
         <div class="cert-card">
           <div class="cert-top">
-            <img
-              class="cert-badge-img"
-              src="https://images.credly.com/images/7404ca0d-98e1-48b6-a2a3-de8d7dcd85b5/linkedin_thumb_blob"
-              alt="LFS250 Kubernetes and Cloud Native Essentials Badge"
-            />
+            <img class="cert-badge-img" src="https://images.credly.com/images/7404ca0d-98e1-48b6-a2a3-de8d7dcd85b5/linkedin_thumb_blob" alt="LFS250 Badge"/>
             <div class="cert-meta">
               <div class="cert-issuer">The Linux Foundation</div>
               <div class="cert-name">LFS250: Kubernetes and Cloud Native Essentials</div>
               <div class="cert-date">↳ Issued May 26, 2026</div>
             </div>
           </div>
-          <p class="cert-desc">
-            Understanding of cloud native architecture and container orchestration versus legacy systems. Covers Kubernetes object management for workloads, networking and storage, cloud native observability, and CI/CD & GitOps delivery pipelines integrated with Kubernetes.
-          </p>
-          <a href="https://www.credly.com/badges/1fe64b4d-669c-4422-b035-ece2ac4557dd" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
+          <p class="cert-desc">Understanding of cloud native architecture and container orchestration versus legacy systems. Covers Kubernetes object management for workloads, networking and storage, cloud native observability, and CI/CD & GitOps delivery pipelines integrated with Kubernetes.</p>
+          <button class="doc-tile" onclick="openModal('LFS250: Kubernetes and Cloud Native Essentials — Certificate', 'https://drive.google.com/file/d/1p2yFXg5OMWwC5RyF5SE2ySh5rS7oXyyG/preview', 'https://drive.google.com/file/d/1p2yFXg5OMWwC5RyF5SE2ySh5rS7oXyyG/view', 'iframe')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">The Linux Foundation · Certificate PDF</span>
+              <span class="doc-tile-name">View Certificate</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
 
         <div class="cert-card">
           <div class="cert-top">
-            <img
-              class="cert-badge-img"
-              src="https://images.credly.com/images/f28f1d88-428a-47f6-95b5-7da1dd6c1000/linkedin_thumb_KCNA_badge.png"
-              alt="KCNA Kubernetes and Cloud Native Associate Badge"
-            />
+            <img class="cert-badge-img" src="https://images.credly.com/images/f28f1d88-428a-47f6-95b5-7da1dd6c1000/linkedin_thumb_KCNA_badge.png" alt="KCNA Badge"/>
             <div class="cert-meta">
               <div class="cert-issuer">The Linux Foundation</div>
               <div class="cert-name">KCNA: Kubernetes and Cloud Native Associate</div>
               <div class="cert-date">↳ Issued Jun 06, 2026 &nbsp;·&nbsp; Expires Jun 06, 2028</div>
             </div>
           </div>
-          <p class="cert-desc">
-            Demonstrated foundational knowledge of Kubernetes and cloud-native technologies — deploying applications via kubectl, understanding Kubernetes architecture (containers, pods, nodes, clusters), the cloud-native landscape including storage, networking, GitOps and service mesh, and core principles of cloud-native security.
-          </p>
-          <a href="https://www.credly.com/badges/acbf224c-d1cb-40c6-982b-5f1b8be0c61c" target="_blank" rel="noopener" class="cert-verify">VERIFY CREDENTIAL</a>
+          <p class="cert-desc">Demonstrated foundational knowledge of Kubernetes and cloud-native technologies — deploying applications via kubectl, understanding Kubernetes architecture (containers, pods, nodes, clusters), the cloud-native landscape including storage, networking, GitOps and service mesh, and core principles of cloud-native security.</p>
+          <button class="doc-tile" onclick="openModal('KCNA: Kubernetes and Cloud Native Associate — Certificate', 'https://drive.google.com/file/d/1VWD2PDBEdIZALLeGHm-rSIt5ev8U6-mx/preview', 'https://drive.google.com/file/d/1VWD2PDBEdIZALLeGHm-rSIt5ev8U6-mx/view', 'iframe')">
+            <span class="doc-tile-icon">📄</span>
+            <span class="doc-tile-body">
+              <span class="doc-tile-label">The Linux Foundation · Certificate PDF</span>
+              <span class="doc-tile-name">View Certificate</span>
+            </span>
+            <span class="doc-tile-arrow">→</span>
+          </button>
         </div>
 
       </div>
@@ -2018,15 +2040,16 @@
     <div class="modal-topbar">
       <span class="modal-title" id="modal-title-text">Document</span>
       <div class="modal-actions">
-        <a id="modal-external-link" href="#" target="_blank" rel="noopener" class="modal-open-btn">↗ OPEN IN DRIVE</a>
+        <a id="modal-external-link" href="#" target="_blank" rel="noopener" class="modal-open-btn">↗ OPEN IN CREDLY</a>
         <button id="modal-close-btn" class="modal-close" title="Close [Esc]">✕</button>
       </div>
     </div>
     <div id="modal-loader">
       <span class="modal-spinner">◌</span>
-      <span>loading document...</span>
+      <span>loading...</span>
     </div>
     <iframe id="modal-iframe" src="" allow="autoplay" allowfullscreen></iframe>
+    <img id="modal-img" src="" alt="Certificate" />
   </div>
 
   <script>
@@ -2036,6 +2059,7 @@
 
     const _modal    = document.getElementById('doc-modal');
     const _iframe   = document.getElementById('modal-iframe');
+    const _img      = document.getElementById('modal-img');
     const _loader   = document.getElementById('modal-loader');
     const _titleEl  = document.getElementById('modal-title-text');
     const _extLink  = document.getElementById('modal-external-link');
@@ -2044,31 +2068,62 @@
     function _hideLoader() {
       _loader.style.display = 'none';
       _iframe.classList.add('loaded');
+      _img.classList.add('loaded');
       if (_loaderTimer) { clearTimeout(_loaderTimer); _loaderTimer = null; }
     }
 
     function _dismissModal() {
       _modal.classList.remove('open');
       document.body.style.overflow = '';
+      // Reset iframe
       _iframe.classList.remove('loaded');
       _iframe.src = '';
+      _iframe.style.display = 'none';
+      // Reset image
+      _img.classList.remove('loaded');
+      _img.src = '';
+      _img.style.display = 'none';
+      // Reset loader
       _loader.style.display = 'flex';
       if (_loaderTimer) { clearTimeout(_loaderTimer); _loaderTimer = null; }
     }
 
-    function openModal(title, embedUrl, driveUrl) {
+    // openModal(title, src, externalUrl, type)
+    // type = 'iframe' (default) | 'image'
+    function openModal(title, src, externalUrl, type) {
+      type = type || 'iframe';
       _titleEl.textContent = title;
-      _extLink.href = driveUrl;
+      _extLink.href = externalUrl;
+      _extLink.textContent = type === 'image' ? '↗ OPEN IN CREDLY' : '↗ OPEN IN DRIVE';
+
+      // Reset both elements
       _iframe.classList.remove('loaded');
       _iframe.src = '';
+      _img.classList.remove('loaded');
+      _img.src = '';
       _loader.style.display = 'flex';
+
+      if (type === 'image') {
+        _iframe.style.display = 'none';
+        _img.style.display = 'block';
+      } else {
+        _img.style.display = 'none';
+        _iframe.style.display = 'block';
+      }
+
       _modal.classList.add('open');
       document.body.style.overflow = 'hidden';
       history.pushState({ modalOpen: true }, '');
       _modalHistoryPushed = true;
-      requestAnimationFrame(() => { _iframe.src = embedUrl; });
+
+      if (type === 'image') {
+        requestAnimationFrame(() => { _img.src = src; });
+      } else {
+        requestAnimationFrame(() => { _iframe.src = src; });
+      }
+
       if (_loaderTimer) clearTimeout(_loaderTimer);
-      _loaderTimer = setTimeout(_hideLoader, 10000);
+      _loaderTimer = setTimeout(_hideLoader, type === 'image' ? 6000 : 10000);
     }
 
     function closeModal() {
@@ -2080,19 +2135,24 @@
       }
     }
 
-    // Iframe loaded — swap loader for content
+    // Image loaded
+    _img.addEventListener('load', function() {
+      if (_modal.classList.contains('open') && _img.src !== '') _hideLoader();
+    });
+
+    // Iframe loaded
     _iframe.addEventListener('load', function() {
       if (_modal.classList.contains('open') && _iframe.src !== '') _hideLoader();
     });
 
-    // Close button — mousedown fires BEFORE iframe steals focus on click
+    // Close button
     _closeBtn.addEventListener('mousedown', function(e) {
-      e.preventDefault();   // Prevents focus transfer to button
-      e.stopPropagation();  // Prevents backdrop handler from also firing
+      e.preventDefault();
+      e.stopPropagation();
       closeModal();
     });
 
-    // Backdrop — also mousedown for consistency
+    // Backdrop click
     _modal.addEventListener('mousedown', function(e) {
       if (e.target === _modal) {
         e.preventDefault();
