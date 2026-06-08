@@ -2075,10 +2075,10 @@
       _modal.classList.remove('open');
       document.body.style.overflow = '';
       _iframe.classList.remove('loaded');
-      _iframe.src = '';
+      _iframe.src = 'about:blank';
       _iframe.style.display = 'none';
       _img.classList.remove('loaded');
-      _img.src = '';
+      _img.removeAttribute('src');
       _img.style.display = 'none';
       _loader.style.display = 'flex';
       if (_loaderTimer) { clearTimeout(_loaderTimer); _loaderTimer = null; }
@@ -2115,29 +2115,25 @@
       _dismissModal();
     }
 
+    // Iframe load — check src isn't about:blank before hiding loader
+    _iframe.addEventListener('load', function() {
+      if (_modal.classList.contains('open') && _iframe.src !== 'about:blank') _hideLoader();
+    });
+
     // Image loaded
     _img.addEventListener('load', function() {
-      if (_modal.classList.contains('open') && _img.src !== '') _hideLoader();
+      if (_modal.classList.contains('open')) _hideLoader();
     });
 
-    // Iframe loaded
-    _iframe.addEventListener('load', function() {
-      if (_modal.classList.contains('open') && _iframe.src !== '') _hideLoader();
-    });
-
-    // Close button
-    _closeBtn.addEventListener('mousedown', function(e) {
-      e.preventDefault();
+    // Close button — stopPropagation only, no preventDefault (breaks mobile touch)
+    _closeBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       closeModal();
     });
 
-    // Backdrop click
-    _modal.addEventListener('mousedown', function(e) {
-      if (e.target === _modal) {
-        e.preventDefault();
-        closeModal();
-      }
+    // Backdrop click — only when clicking the dark overlay itself
+    _modal.addEventListener('click', function(e) {
+      if (e.target === _modal) closeModal();
     });
 
     // Escape key
