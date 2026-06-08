@@ -2054,6 +2054,7 @@
 
   <script>
     // ── MODAL ──
+    let _modalHistoryPushed = false;
     let _loaderTimer = null;
 
     const _modal    = document.getElementById('doc-modal');
@@ -2074,26 +2075,34 @@
     function _dismissModal() {
       _modal.classList.remove('open');
       document.body.style.overflow = '';
+      // Reset iframe
       _iframe.classList.remove('loaded');
-      _iframe.src = 'about:blank';
+      _iframe.src = '';
       _iframe.style.display = 'none';
+      // Reset image
       _img.classList.remove('loaded');
-      _img.removeAttribute('src');
+      _img.src = '';
       _img.style.display = 'none';
+      // Reset loader
       _loader.style.display = 'flex';
       if (_loaderTimer) { clearTimeout(_loaderTimer); _loaderTimer = null; }
     }
 
+    // openModal(title, src, externalUrl, type)
+    // type = 'iframe' (default) | 'image'
     function openModal(title, src, externalUrl, type) {
       type = type || 'iframe';
       _titleEl.textContent = title;
       _extLink.href = externalUrl;
       _extLink.textContent = type === 'image' ? '↗ OPEN IN CREDLY' : '↗ OPEN IN DRIVE';
+
+      // Reset both elements
       _iframe.classList.remove('loaded');
       _iframe.src = '';
       _img.classList.remove('loaded');
       _img.src = '';
       _loader.style.display = 'flex';
+
       if (type === 'image') {
         _iframe.style.display = 'none';
         _img.style.display = 'block';
@@ -2101,11 +2110,18 @@
         _img.style.display = 'none';
         _iframe.style.display = 'block';
       }
+
       _modal.classList.add('open');
       document.body.style.overflow = 'hidden';
-      requestAnimationFrame(() => {
-        if (type === 'image') { _img.src = src; } else { _iframe.src = src; }
-      });
+      history.pushState({ modalOpen: true }, '');
+      _modalHistoryPushed = true;
+
+      if (type === 'image') {
+        requestAnimationFrame(() => { _img.src = src; });
+      } else {
+        requestAnimationFrame(() => { _iframe.src = src; });
+      }
+
       if (_loaderTimer) clearTimeout(_loaderTimer);
       _loaderTimer = setTimeout(_hideLoader, type === 'image' ? 6000 : 10000);
     }
@@ -2113,32 +2129,48 @@
     function closeModal() {
       if (!_modal.classList.contains('open')) return;
       _dismissModal();
+      if (_modalHistoryPushed) {
+        _modalHistoryPushed = false;
+        history.back();
+      }
     }
-
-    // Iframe load — check src isn't about:blank before hiding loader
-    _iframe.addEventListener('load', function() {
-      if (_modal.classList.contains('open') && _iframe.src !== 'about:blank') _hideLoader();
-    });
 
     // Image loaded
     _img.addEventListener('load', function() {
-      if (_modal.classList.contains('open')) _hideLoader();
+      if (_modal.classList.contains('open') && _img.src !== '') _hideLoader();
     });
 
-    // Close button — stopPropagation only, no preventDefault (breaks mobile touch)
-    _closeBtn.addEventListener('click', function(e) {
+    // Iframe loaded
+    _iframe.addEventListener('load', function() {
+      if (_modal.classList.contains('open') && _iframe.src !== '') _hideLoader();
+    });
+
+    // Close button
+    _closeBtn.addEventListener('mousedown', function(e) {
+      e.preventDefault();
       e.stopPropagation();
       closeModal();
     });
 
-    // Backdrop click — only when clicking the dark overlay itself
-    _modal.addEventListener('click', function(e) {
-      if (e.target === _modal) closeModal();
+    // Backdrop click
+    _modal.addEventListener('mousedown', function(e) {
+      if (e.target === _modal) {
+        e.preventDefault();
+        closeModal();
+      }
     });
 
     // Escape key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // Browser back button
+    window.addEventListener('popstate', function() {
+      if (_modal.classList.contains('open')) {
+        _modalHistoryPushed = false;
+        _dismissModal();
+      }
     });
 
     // ── STATUS BAR CLOCK ──
